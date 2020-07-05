@@ -1,0 +1,73 @@
+body{
+    background: #F8E9E9;
+    text-align: center;
+}
+.game-2048 {
+    display: inline-block;
+    margin: 0 auto;
+}
+.title {
+    font-size: 64px;
+    font-weight: bold;
+    color: #394648;
+    text-align: left;
+}
+.container {
+    position: relative;
+    width: 500px;
+    height: 500px;
+    background-color: #5A6F72;
+    padding: 16px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    column-gap: 16px;
+    row-gap: 16px;
+    border-radius: 4%;
+}
+.container .cell {
+    background: #81999C;
+    border-radius: 4%;
+}
+
+
+// 生成各个位置格子的class
+@iterations: 3;
+.i-loop(@i) when (@i > -1) {
+    .j-loop(@j) when (@j > -1) {
+        .cell-@{i}-@{j} {
+            position: absolute;
+            top: 129px * @i + 16px;
+            left: 129px * @j + 16px;
+        }
+        .j-loop(@j - 1);
+    }
+    .j-loop(@iterations);
+    .i-loop(@i - 1);
+}
+.i-loop (@iterations);
+
+@color-set: {
+    2: #CBAC88;
+    4: #BB9263;
+    8: #AA7E4B;
+    16: #E7A088;
+    32: #E08567;
+    64: #D96A45;
+    128: #CB522A;
+    256: #96B98D;
+    1024: #7FAA74;
+    2048: #577E4E
+}
+each(@color-set, {
+    .cell-@{key} {
+        background-color: @value;
+        color: black;
+        text-align: center;
+        line-height: 115px;
+        width: 115px;
+        border-radius: 2px;
+        font-size: 49px;
+        font-weight: bolder;
+    };
+});

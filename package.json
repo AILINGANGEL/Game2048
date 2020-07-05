@@ -1,0 +1,33 @@
+{
+  "name": "Game-2048",
+  "version": "1.0.0",
+  "description": "2048游戏",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server --open",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AILINGANGEL/Game2048.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AILINGANGEL/Game2048/issues"
+  },
+  "homepage": "https://github.com/AILINGANGEL/Game2048#readme",
+  "devDependencies": {
+    "clean-webpack-plugin": "^3.0.0",
+    "css-loader": "^3.6.0",
+    "html-webpack-plugin": "^4.2.0",
+    "less-loader": "^6.2.0",
+    "style-loader": "^1.2.1",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.7.1"
+  },
+  "dependencies": {}
+}
