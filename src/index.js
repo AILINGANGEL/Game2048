@@ -41,16 +41,25 @@ class Game {
                             this.grid.removeCell(cell);
                             this.grid.removeCell(nextCell);
                             this.grid.addCell(newCell);
+                            if(newCell.value === 16) {
+                                this.win = true;
+                            }
                         } else {
-                            this.grid.updateCell(cell, farthest);
+                            this.grid.updateCellPos(cell, farthest);
                         }
                     } else {
-                       this.grid.updateCell(cell, farthest);
+                       this.grid.updateCellPos(cell, farthest);
                     }
                 }
             });
         });
         this.grid.update(direction);
+        this.grid.addRandomCell();
+        if(this.grid.isFull() && this.grid.cannotMove()) {
+            this.over = true;
+        }
+        console.log('over=>', this.over);
+        console.log('win=>', this.win)
     }
     getMoveDirection(code) {
         if(code === 37) {
@@ -171,7 +180,7 @@ class Grid {
     removeCell(cell) {
         this.grid[cell.x][cell.y] = null;
     };
-    updateCell(cell, newPos) {
+    updateCellPos(cell, newPos) {
         this.grid[cell.x][cell.y] = null;
         cell.updatePosition(newPos);
         this.grid[newPos.x][newPos.y] = cell
@@ -193,9 +202,27 @@ class Grid {
         });
         this.domManager.clearAll();
         this.domManager.updateAll(this.grid);
-
-        // 
-        this.addRandomCell();
+    }
+    isFull(){
+        for(let i = 0; i < this.grid.length; i++) {
+            for(let j = 0; j < this.grid[i].length; j++){
+                if(this.grid[i][j] === null) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    cannotMove(){
+        // 每个格子只需要和自己右边以及下边的格子进行对比;
+        for(let i = 0; i < this.grid.length - 1; i++) {
+            for(let j = 0; j < this.grid[i].length -1; j++){
+                if(this.grid[i][j] === null || this.grid[i][j].value === this.grid[i][j+1].value || this.grid[i][j].value === this.grid[i+1][j].value) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
 
